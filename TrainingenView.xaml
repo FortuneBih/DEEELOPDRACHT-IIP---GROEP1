@@ -1,0 +1,198 @@
+<Page x:Class="BubbelvriendWPF.Views.TrainingenView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="#F0F4F8">
+
+    <Grid Margin="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="360"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- LINKS: overzicht trainingen + inschrijvingen -->
+        <Grid Grid.Column="0" Margin="0,0,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="240"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Trainingen"
+                       FontSize="20" FontWeight="Bold"
+                       Foreground="#1A237E" Margin="0,0,0,12"/>
+
+            <!-- DataGrid trainingen -->
+            <DataGrid Grid.Row="1" x:Name="DgTrainingen"
+                      SelectionChanged="DgTrainingen_SelectionChanged"
+                      VerticalScrollBarVisibility="Auto"
+                      Margin="0,0,0,10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Naam"    Binding="{Binding Naam}"           Width="150"/>
+                    <DataGridTextColumn Header="Datum"   Binding="{Binding DatumWeergave}"  Width="90"/>
+                    <DataGridTextColumn Header="Uren"    Binding="{Binding UrenWeergave}"   Width="100"/>
+                    <DataGridTextColumn Header="Stad"    Binding="{Binding Stad}"           Width="100"/>
+                    <DataGridTextColumn Header="Niveau"  Binding="{Binding NiveauSterren}"  Width="60"/>
+                    <DataGridTextColumn Header="Diepte"  Binding="{Binding MaxDiepte}"      Width="65"/>
+                    <DataGridTextColumn Header="Status"  Binding="{Binding VolStatusWeergave}" Width="*"/>
+                </DataGrid.Columns>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsVol}" Value="True">
+                                <Setter Property="Background" Value="#FFEBEE"/>
+                                <Setter Property="Foreground" Value="#C62828"/>
+                            </DataTrigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#E3F2FD"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#BBDEFB"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+            </DataGrid>
+
+            <!-- Inschrijvingen voor geselecteerde training -->
+            <Border Grid.Row="2" Background="White" CornerRadius="8"
+                    BorderBrush="#ECEFF1" BorderThickness="1" Padding="12">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               x:Name="TxtInschrijvingenTitel"
+                               Text="Inschrijvingen (selecteer een training)"
+                               FontSize="14" FontWeight="SemiBold"
+                               Foreground="#1A237E" Margin="0,0,0,8"/>
+
+                    <DataGrid Grid.Row="1" x:Name="DgInschrijvingen"
+                              VerticalScrollBarVisibility="Auto"
+                              FontSize="12">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Naam"     Binding="{Binding VolledigeNaam}" Width="150"/>
+                            <DataGridTextColumn Header="Sterren"  Binding="{Binding SterrenWeergave}" Width="100"/>
+                            <DataGridTextColumn Header="E-mail"   Binding="{Binding Email}"         Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Button Grid.Row="2" x:Name="BtnAccepteer"
+                            Content="✔️ Geselecteerde deelnemer accepteren"
+                            Click="BtnAccepteer_Click"
+                            Style="{StaticResource PrimaryButton}"
+                            Margin="0,8,0,0" IsEnabled="False"/>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- RECHTS: Formulier training aanmaken/wijzigen -->
+        <Border Grid.Column="1" Background="White" CornerRadius="10"
+                BorderBrush="#ECEFF1" BorderThickness="1" Padding="16">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="Training aanmaken"
+                               FontSize="16" FontWeight="Bold"
+                               Foreground="#1A237E" Margin="0,0,0,16"/>
+
+                    <Label Content="Naam *"/>
+                    <TextBox x:Name="TxtNaam" Margin="0,0,0,10"/>
+
+                    <Label Content="Titel *"/>
+                    <TextBox x:Name="TxtTitel" Margin="0,0,0,10"/>
+
+                    <Label Content="Tags (kommagescheiden)"/>
+                    <TextBox x:Name="TxtTags" Margin="0,0,0,10"/>
+
+                    <Label Content="Inhoud / Beschrijving *"/>
+                    <TextBox x:Name="TxtInhoud" Height="70" TextWrapping="Wrap"
+                             AcceptsReturn="True" Margin="0,0,0,10"
+                             VerticalScrollBarVisibility="Auto"/>
+
+                    <Grid Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="0,0,4,0">
+                            <Label Content="Stad *" Margin="0"/>
+                            <TextBox x:Name="TxtStad"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="4,0,0,0">
+                            <Label Content="Provincie *" Margin="0"/>
+                            <TextBox x:Name="TxtProvincie"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="0,0,4,0">
+                            <Label Content="Aantal plaatsen *" Margin="0"/>
+                            <TextBox x:Name="TxtAantalPlaatsen"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="4,0,0,0">
+                            <Label Content="Max. diepte (m) *" Margin="0"/>
+                            <TextBox x:Name="TxtMaxDiepte"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Label Content="Vereist niveau (sterren) *"/>
+                    <ComboBox x:Name="CmbNiveau" Margin="0,0,0,10">
+                        <ComboBoxItem Content="1 ster"/>
+                        <ComboBoxItem Content="2 sterren"/>
+                        <ComboBoxItem Content="3 sterren"/>
+                        <ComboBoxItem Content="4 sterren"/>
+                        <ComboBoxItem Content="5 sterren"/>
+                    </ComboBox>
+
+                    <Label Content="Datum *"/>
+                    <DatePicker x:Name="DpDatum" Margin="0,0,0,10"/>
+
+                    <Grid Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="0,0,4,0">
+                            <Label Content="Startuur (HH:MM) *" Margin="0"/>
+                            <TextBox x:Name="TxtStartuur" MaxLength="5"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="4,0,0,0">
+                            <Label Content="Einduur (HH:MM) *" Margin="0"/>
+                            <TextBox x:Name="TxtEinduur" MaxLength="5"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Button Content="💾 Training opslaan"
+                            Click="BtnOpslaan_Click"
+                            Style="{StaticResource PrimaryButton}"
+                            Margin="0,0,0,8"/>
+
+                    <Button x:Name="BtnVerwijderTraining"
+                            Content="🗑️ Training verwijderen"
+                            Click="BtnVerwijderTraining_Click"
+                            Style="{StaticResource DangerButton}"
+                            Margin="0,0,0,8" IsEnabled="False"/>
+
+                    <Button Content="↺ Leegmaken"
+                            Click="BtnLeegmaken_Click"
+                            Style="{StaticResource SecondaryButton}"/>
+
+                    <Border x:Name="FoutPanel" Background="#FFEBEE"
+                            CornerRadius="6" BorderBrush="#EF9A9A"
+                            BorderThickness="1" Padding="10"
+                            Margin="0,12,0,0" Visibility="Collapsed">
+                        <TextBlock x:Name="TxtFout" Foreground="#C62828"
+                                   FontSize="12" TextWrapping="Wrap"/>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Page>
