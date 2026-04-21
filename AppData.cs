@@ -20,7 +20,6 @@ namespace BubbelvriendWPF.Data
         public static int NieuwTrainingId() => _volgendTrainingId++;
         public static int NieuwSessieId() => _volgendSessieId++;
 
-        // Laad fictieve startdata zodat de applicatie meteen bruikbaar is
         public static void LaadVoorbeeldData()
         {
             // Fictieve leden
