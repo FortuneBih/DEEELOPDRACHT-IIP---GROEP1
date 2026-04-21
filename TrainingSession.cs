@@ -11,7 +11,7 @@ namespace BubbelvriendWPF.Models
 
         public int TotaalSterren => (Duiker1?.Sterren ?? 0) + (Duiker2?.Sterren ?? 0);
 
-        // Controleert of het duo geldig is op basis van de sterren-regels
+        //  Om te controleren of de duo geldig is op basis van de sterrenregels
         // Regel: som >= 5 sterren, OF som = 4 als diepte <= 20m
         public bool IsGeldigTeam(out string foutmelding)
         {

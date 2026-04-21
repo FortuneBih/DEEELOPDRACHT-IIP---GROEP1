@@ -5,7 +5,7 @@ using System;
 
 namespace BubbelvriendWPF.Data
 {
-    // Centrale dataklas: alle schermen delen dezelfde lijsten
+    // Centrale dataklas: alle schermen dezelfde klas
     public static class AppData
     {
         public static ObservableCollection<Person> Leden { get; set; } = new ObservableCollection<Person>();
@@ -51,7 +51,7 @@ namespace BubbelvriendWPF.Data
                 Startuur = new TimeSpan(10, 0, 0),
                 Einduur = new TimeSpan(12, 0, 0)
             };
-            // Fictieve inschrijvingen (alsof ze via de website binnenkwamen)
+            // Fictieve inschrijvingen via website
             t1.Inschrijvingen.AddRange(new[] { p2, p5 });
 
             var t2 = new Training
@@ -89,12 +89,12 @@ namespace BubbelvriendWPF.Data
                 Einduur = new TimeSpan(14, 0, 0)
             };
             t3.Inschrijvingen.AddRange(new[] { p3, p4 });
-            // T3: accepteer p3 zodat we een voorbeeld van een al-geaccepteerde hebben
+            // T3: accepteer p3 zodat we een voorbeeld van een algeaccepteerde hebben
             t3.Geaccepteerd.Add(p3);
 
             Trainingen.Add(t1); Trainingen.Add(t2); Trainingen.Add(t3);
 
-            // Update de ID-tellers
+            // Update de IDtellers
             _volgendLedenId = 7;
             _volgendTrainingId = 4;
             _volgendSessieId = 1;

@@ -21,7 +21,7 @@ namespace BubbelvriendWPF.Models
         public string VolledigAdres => $"{Straat} {Huisnummer}, {Postcode} {Gemeente}";
         public string SterrenWeergave => new string('★', Sterren) + new string('☆', 5 - Sterren);
 
-        // Valideer alle basisvelden
+        // Validern van alle basisvelden
         public bool IsGeldig(out string foutmelding)
         {
             if (string.IsNullOrWhiteSpace(Naam))
@@ -67,14 +67,14 @@ namespace BubbelvriendWPF.Models
             return true;
         }
 
-        // Postcode = precies 4 cijfers
+        // Postcode = 4 cijfers
         public static bool IsGeldigePostcode(string postcode)
         {
             return Regex.IsMatch(postcode, @"^\d{4}$");
         }
 
         // Rijksregisternummer basischeck: 11 cijfers
-        // Extra: controlegetals-validatie (uitbreiding)
+        // Extra: controlegetalsvalidatie 
         public static bool IsGeldigRijksregisternummer(string rr, out string fout)
         {
             string alleen = Regex.Replace(rr, @"\D", "");
@@ -85,7 +85,7 @@ namespace BubbelvriendWPF.Models
                 return false;
             }
 
-            // Controleer checksum (uitbreiding)
+            // Controleren van de checksum 
             if (!HeeftGeldigControlegetal(alleen))
             {
                 fout = "Rijksregisternummer heeft een ongeldig controlegetal.";
@@ -97,7 +97,6 @@ namespace BubbelvriendWPF.Models
         }
 
         // Berekening controlegetal rijksregisternummer
-        // Zie: https://nl.wikipedia.org/wiki/Rijksregisternummer
         private static bool HeeftGeldigControlegetal(string rr)
         {
             try
@@ -105,11 +104,11 @@ namespace BubbelvriendWPF.Models
                 long basis = long.Parse(rr.Substring(0, 9));
                 int controle = int.Parse(rr.Substring(9, 2));
 
-                // Probeer eerst zonder 2 (geboren vóór 2000)
+                // (geboren vóór 2000)
                 int rest = (int)(97 - (basis % 97));
                 if (rest == controle) return true;
 
-                // Probeer met 2 vooraan (geboren na 1999)
+                // (geboren na 1999)
                 long basis2000 = long.Parse("2" + rr.Substring(0, 9));
                 int rest2000 = (int)(97 - (basis2000 % 97));
                 return rest2000 == controle;
@@ -125,7 +124,7 @@ namespace BubbelvriendWPF.Models
             return Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
         }
 
-        // Omzetten naar CSV-rij
+        // Omzetten naar CSVrij
         public string NaarCsv()
         {
             return $"{Id},{EscapeCsv(Naam)},{EscapeCsv(Voornaam)},{EscapeCsv(Rijksregisternummer)}," +
@@ -133,7 +132,7 @@ namespace BubbelvriendWPF.Models
                    $"{EscapeCsv(Telefoonnummer)},{EscapeCsv(Email)},{Sterren}";
         }
 
-        // Aanmaken vanuit CSV-rij
+        // Aanmaken vanuit CSVrij
         public static Person VanCsv(string csvRegel)
         {
             string[] delen = csvRegel.Split(',');
