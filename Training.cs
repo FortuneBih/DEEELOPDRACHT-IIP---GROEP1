@@ -20,7 +20,7 @@ namespace BubbelvriendWPF.Models
         public TimeSpan Startuur { get; set; }
         public TimeSpan Einduur { get; set; }
 
-        // Lijst van ingeschreven personen (fictieve data van de website)
+        // Lijst van ingeschreven personen 
         public List<Person> Inschrijvingen { get; set; } = new List<Person>();
 
         // Lijst van geaccepteerde deelnemers

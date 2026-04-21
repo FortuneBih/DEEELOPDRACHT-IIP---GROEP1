@@ -11,7 +11,7 @@ namespace BubbelvriendWPF.Data
     {
         private const string CsvHeader = "Id,Naam,Voornaam,Rijksregisternummer,Straat,Huisnummer,Postcode,Gemeente,Telefoonnummer,Email,Sterren";
 
-        // Exporteer leden naar een CSV-bestand via SaveFileDialog
+        // Exporteren van leden naar de CSV bestand via SaveFileDialog
         public static void ExporteerLeden(IEnumerable<Person> leden)
         {
             var dialog = new SaveFileDialog
@@ -42,7 +42,7 @@ namespace BubbelvriendWPF.Data
             }
         }
 
-        // Importeer leden vanuit een CSV-bestand via OpenFileDialog
+        // Importeren van leden vanuit de CSV bestand via OpenFileDialog
         public static List<Person> ImporteerLeden()
         {
             var dialog = new OpenFileDialog
@@ -61,7 +61,7 @@ namespace BubbelvriendWPF.Data
             {
                 using (var reader = new StreamReader(dialog.FileName, System.Text.Encoding.UTF8))
                 {
-                    string eerste = reader.ReadLine(); // sla de headerrij over
+                    string eerste = reader.ReadLine(); // header rij overslaan
                     if (eerste == null) return resultaat;
 
                     string regel;

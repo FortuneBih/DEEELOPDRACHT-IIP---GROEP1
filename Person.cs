@@ -71,6 +71,7 @@ namespace BubbelvriendWPF.Models
         public static bool IsGeldigePostcode(string postcode)
         {
             return Regex.IsMatch(postcode, @"^\d{4}$");
+
         }
 
         // Rijksregisternummer basischeck: 11 cijfers
