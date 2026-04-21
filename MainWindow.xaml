@@ -214,7 +214,7 @@
         <TabControl Grid.Row="1" Background="Transparent" BorderThickness="0"
                     TabStripPlacement="Top">
 
-            <!-- ══════════════ TAB 1: LEDEN ══════════════ -->
+            <!-- TAB 1: LEDEN -->
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -222,10 +222,10 @@
                         <TextBlock Text="Ledenbeheer"/>
                     </StackPanel>
                 </TabItem.Header>
-                <Frame Source="Views/LedenView.xaml" NavigationUIVisibility="Hidden"/>
+                <Frame Source="LedenView.xaml" NavigationUIVisibility="Hidden"/>
             </TabItem>
 
-            <!-- ══════════════ TAB 2: TRAININGEN ══════════════ -->
+            <!-- TAB 2: TRAININGEN -->
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -233,10 +233,10 @@
                         <TextBlock Text="Trainingen"/>
                     </StackPanel>
                 </TabItem.Header>
-                <Frame Source="Views/TrainingenView.xaml" NavigationUIVisibility="Hidden"/>
+                <Frame Source="TrainingenView.xaml" NavigationUIVisibility="Hidden"/>
             </TabItem>
 
-            <!-- ══════════════ TAB 3: SESSIES ══════════════ -->
+            <!-- TAB 3: SESSIES -->
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -244,7 +244,7 @@
                         <TextBlock Text="Trainingssessies"/>
                     </StackPanel>
                 </TabItem.Header>
-                <Frame Source="Views/SessiesView.xaml" NavigationUIVisibility="Hidden"/>
+                <Frame Source="SessiesView.xaml" NavigationUIVisibility="Hidden"/>
             </TabItem>
 
         </TabControl>
