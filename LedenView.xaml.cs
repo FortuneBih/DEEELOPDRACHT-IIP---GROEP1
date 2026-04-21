@@ -12,7 +12,6 @@ namespace BubbelvriendWPF.Views
         private Person _geselecteerdLid = null;
         private bool _isWijzigenModus = false;
 
-        // Gefilterde weergave van de leden
         private ObservableCollection<Person> _gefilterdeLeden;
 
         public LedenView()
@@ -22,8 +21,6 @@ namespace BubbelvriendWPF.Views
             DgLeden.ItemsSource = _gefilterdeLeden;
             PasAantalLedenBijwerken();
         }
-
-        // ─── FILTER & ZOEK ────────────────────────────────────
 
         private void TxtZoeken_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -37,8 +34,10 @@ namespace BubbelvriendWPF.Views
 
         private void PasFilterToe()
         {
+            if (_gefilterdeLeden == null) return;
+
             string zoekterm = TxtZoeken?.Text?.ToLower() ?? "";
-            int filterSterren = CmbFilterSterren?.SelectedIndex ?? 0; // 0 = alle
+            int filterSterren = CmbFilterSterren?.SelectedIndex ?? 0;
 
             var gefilterd = AppData.Leden.Where(p =>
             {
@@ -67,8 +66,6 @@ namespace BubbelvriendWPF.Views
                 TxtAantalLeden.Text = $"{_gefilterdeLeden.Count} / {AppData.Leden.Count} leden";
         }
 
-        // ─── DATAGRID SELECTIE ─────────────────────────────────
-
         private void DgLeden_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _geselecteerdLid = DgLeden.SelectedItem as Person;
@@ -81,19 +78,17 @@ namespace BubbelvriendWPF.Views
                 VulFormulierIn(_geselecteerdLid);
         }
 
-        // ─── FORMULIER ────────────────────────────────────────
-
         private void VulFormulierIn(Person p)
         {
-            TxtNaam.Text         = p.Naam;
-            TxtVoornaam.Text     = p.Voornaam;
-            TxtRijksreg.Text     = p.Rijksregisternummer;
-            TxtStraat.Text       = p.Straat;
-            TxtHuisnummer.Text   = p.Huisnummer;
-            TxtPostcode.Text     = p.Postcode;
-            TxtGemeente.Text     = p.Gemeente;
-            TxtTelefoon.Text     = p.Telefoonnummer;
-            TxtEmail.Text        = p.Email;
+            TxtNaam.Text = p.Naam;
+            TxtVoornaam.Text = p.Voornaam;
+            TxtRijksreg.Text = p.Rijksregisternummer;
+            TxtStraat.Text = p.Straat;
+            TxtHuisnummer.Text = p.Huisnummer;
+            TxtPostcode.Text = p.Postcode;
+            TxtGemeente.Text = p.Gemeente;
+            TxtTelefoon.Text = p.Telefoonnummer;
+            TxtEmail.Text = p.Email;
             CmbSterren.SelectedIndex = p.Sterren - 1;
             VerbergFout();
         }
@@ -102,16 +97,16 @@ namespace BubbelvriendWPF.Views
         {
             return new Person
             {
-                Naam              = TxtNaam.Text.Trim(),
-                Voornaam          = TxtVoornaam.Text.Trim(),
+                Naam = TxtNaam.Text.Trim(),
+                Voornaam = TxtVoornaam.Text.Trim(),
                 Rijksregisternummer = TxtRijksreg.Text.Trim(),
-                Straat            = TxtStraat.Text.Trim(),
-                Huisnummer        = TxtHuisnummer.Text.Trim(),
-                Postcode          = TxtPostcode.Text.Trim(),
-                Gemeente          = TxtGemeente.Text.Trim(),
-                Telefoonnummer    = TxtTelefoon.Text.Trim(),
-                Email             = TxtEmail.Text.Trim(),
-                Sterren           = CmbSterren.SelectedIndex + 1
+                Straat = TxtStraat.Text.Trim(),
+                Huisnummer = TxtHuisnummer.Text.Trim(),
+                Postcode = TxtPostcode.Text.Trim(),
+                Gemeente = TxtGemeente.Text.Trim(),
+                Telefoonnummer = TxtTelefoon.Text.Trim(),
+                Email = TxtEmail.Text.Trim(),
+                Sterren = CmbSterren.SelectedIndex + 1
             };
         }
 
@@ -142,8 +137,6 @@ namespace BubbelvriendWPF.Views
             FoutPanel.Visibility = Visibility.Collapsed;
         }
 
-        // ─── KNOPPEN ──────────────────────────────────────────
-
         private void BtnOpslaan_Click(object sender, RoutedEventArgs e)
         {
             Person nieuw = LeesFormulier();
@@ -170,8 +163,6 @@ namespace BubbelvriendWPF.Views
                 return;
             }
 
-            // Pas het bestaande object aan (ObservableCollection ziet dit niet automatisch,
-            // dus we verwijderen en voegen opnieuw toe)
             int index = AppData.Leden.IndexOf(_geselecteerdLid);
             if (index < 0) return;
 
