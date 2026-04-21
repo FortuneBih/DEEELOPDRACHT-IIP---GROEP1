@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>BubbelvriendWPF</RootNamespace>
+    <AssemblyName>BubbelvriendWPF</AssemblyName>
+    <ApplicationIcon></ApplicationIcon>
+    <StartupObject>BubbelvriendWPF.App</StartupObject>
+  </PropertyGroup>
+
+</Project>
