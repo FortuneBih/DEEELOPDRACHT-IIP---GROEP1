@@ -48,7 +48,11 @@ namespace BubbelvriendWPF.Views
                 .Select(id => id.Value)
                 .ToHashSet();
 
-            var beschikbaren = training.Geaccepteerd
+            var bron = training.Geaccepteerd.Count > 0
+    ? training.Geaccepteerd
+    : AppData.Leden.ToList();
+
+            var beschikbaren = bron
                 .Where(p => !reedGekoppeld.Contains(p.Id))
                 .ToList();
 
